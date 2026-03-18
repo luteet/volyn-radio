@@ -16,9 +16,10 @@ function App() {
   const apiBase = useMemo(() => {
     const fromEnv = import.meta.env.VITE_API_BASE as string | undefined;
     if (fromEnv) return fromEnv;
-    // When opened from another device, "localhost" would be the phone itself.
-    // Default to same host as the frontend, but backend port (3002).
-    return `http://${window.location.hostname}:3002`;
+    // If frontend is served by backend (same origin), use same origin for API.
+    // If running Vite dev server (5173), use backend port (3002) on same host.
+    //if (window.location.port === "5173") return `http://${window.location.hostname}:3010`;
+    return window.location.origin;
   }, []);
 
   type QueueState = {
@@ -103,6 +104,7 @@ function App() {
       // Force polling inside Discord so the app still works.
       transports: inDiscord ? ["polling"] : ["websocket", "polling"],
       upgrade: !inDiscord,
+      withCredentials: false,
       autoConnect: true,
       reconnection: true,
     });
