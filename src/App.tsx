@@ -9,6 +9,7 @@ import {
   faVolumeHigh,
   faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { initDiscord, type DiscordInitState } from "./discord";
 import "./App.css";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
   const [socketStatus, setSocketStatus] = useState<"connecting" | "connected" | "disconnected">(
     "connecting"
   );
+  const [discord, setDiscord] = useState<DiscordInitState>({ status: "connecting" });
   const [isNextLoading, setIsNextLoading] = useState(false);
   const lastNowPlayingUrlRef = useRef<string | null>(null);
   const nextLoadingTimeoutRef = useRef<number | null>(null);
@@ -83,6 +85,12 @@ function App() {
     if (!audioRef.current) return;
     audioRef.current.muted = isMuted;
   }, [isMuted]);
+
+  useEffect(() => {
+    void initDiscord()
+      .then((st) => setDiscord(st))
+      .catch(() => setDiscord({ status: "not_in_discord" }));
+  }, []);
 
   useEffect(() => {
     setError(null);
@@ -333,6 +341,14 @@ function App() {
           <span className="badge">Listeners: {queue?.listeners ?? "—"}</span>
           <span className="badge">{queue?.playing ? "Live" : "Idle"}</span>
           <span className="badge">Socket: {socketStatus}</span>
+          <span className="badge">
+            Discord:{" "}
+            {discord.status === "connected"
+              ? "connected"
+              : discord.status === "connecting"
+                ? "…"
+                : "no"}
+          </span>
         </div>
       </header>
 
