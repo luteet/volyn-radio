@@ -9,7 +9,7 @@ import {
   faVolumeHigh,
   faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { initDiscord, type DiscordInitState } from "./discord";
+import { initDiscord, isRunningInDiscord, type DiscordInitState } from "./discord";
 import "./App.css";
 
 function App() {
@@ -96,9 +96,13 @@ function App() {
     setError(null);
     setSocketStatus("connecting");
 
+    const inDiscord = isRunningInDiscord();
     const socket = io(apiBase, {
       path: "/socket.io",
-      transports: ["websocket", "polling"],
+      // Discord Activities sometimes block WebSocket by CSP.
+      // Force polling inside Discord so the app still works.
+      transports: inDiscord ? ["polling"] : ["websocket", "polling"],
+      upgrade: !inDiscord,
       autoConnect: true,
       reconnection: true,
     });
