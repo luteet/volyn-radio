@@ -26,6 +26,7 @@ type State = {
 
 type Actions = {
   setApi: (api: ApiConfig) => void;
+  setError: (message: string) => void;
   initDiscord: () => void;
   connectSocket: (onConnected: () => void) => () => void;
 };
@@ -42,6 +43,8 @@ export const useAppStore = create<State & Actions>((set, get) => ({
 
   setApi: (api) => set({ api }),
 
+  setError: (message: string) => set({ error: message }),
+
   initDiscord: () => {
     void initDiscord()
       .then((st) => set({ discord: st }))
@@ -50,7 +53,7 @@ export const useAppStore = create<State & Actions>((set, get) => ({
 
   connectSocket: (onConnected) => {
     const api = get().api;
-    if (!api) return () => {};
+    if (!api) return () => { };
 
     // Defer state update to satisfy react-hooks/set-state-in-effect rule.
     queueMicrotask(() => set({ socketStatus: "connecting" }));
@@ -86,7 +89,7 @@ export const useAppStore = create<State & Actions>((set, get) => ({
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("connect_error", onConnectError);
-    
+
     socket.on("errorMessage", (payload: { ok: false; error: string }) => {
       set({ error: payload?.error || "Unknown error" });
     });

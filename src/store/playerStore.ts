@@ -230,7 +230,7 @@ export const usePlayerStore = create<State & Actions>((set, get) => ({
 
   enqueue: async () => {
     set({ error: null });
-    const { socketRef, socketStatus } = useAppStore.getState();
+    const { socketRef, socketStatus, setError } = useAppStore.getState();
     const url = get().youtubeUrl.trim();
     if (!url) return;
     set({ isSubmitting: true });
@@ -239,7 +239,12 @@ export const usePlayerStore = create<State & Actions>((set, get) => ({
       const ack: EnqueueAck = await new Promise((resolve) => {
         socketRef?.emit("enqueue", { url }, (response: EnqueueAck) => resolve(response));
       });
-      if (!ack.ok) throw new Error(ack.error);
+      if (!ack.ok) {
+        setError(ack.error);
+        throw new Error(ack.error);
+      } else {
+        setError("");
+      }
       set({ youtubeUrl: "" });
     } catch (e) {
       set({ error: e instanceof Error ? e.message : String(e) });
