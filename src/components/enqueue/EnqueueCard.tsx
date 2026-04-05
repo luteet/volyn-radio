@@ -26,6 +26,9 @@ export function EnqueueCard() {
 					<svg width="20" height="20">
 						<use href="/sprites.svg?2#youtube" />
 					</svg>
+					<svg width="16" height="16">
+						<use href="/sprites.svg?4#spotify" />
+					</svg>
 				</span>
 			</h2>
 			<EnqueueForm
