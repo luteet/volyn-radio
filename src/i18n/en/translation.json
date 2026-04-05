@@ -1,0 +1,11 @@
+{
+	"Aside": {
+		"close_player": "Close player app",
+		"open_player": "Open player app",
+		"close_player_history": "Close player app",
+		"open_player_history": "Open player app",
+		"close_stickers": "Close stickers panel",
+		"open_stickers": "Open stickers panel",
+		"stickers_label": "Stickers"
+	}
+}

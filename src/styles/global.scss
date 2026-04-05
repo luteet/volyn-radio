@@ -1,0 +1,150 @@
+@use "./tokens.scss";
+
+:root {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--card) var(--bg);
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--card);
+    border-radius: 4px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
+.page-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;
+
+  background-color: var(--bg);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 70%);
+  }
+}
+
+.page-background-stickers {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+}
+
+.page-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("noise-abstract-texture.jpg");
+  background-size: 700px;
+  background-position: center;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent-2);
+}
+
+h1 {
+  font-size: 28px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input,
+button {
+  font-family: inherit;
+}
+
+/* Small global utilities used across cards */
+.muted {
+  color: var(--muted);
+  opacity: 0.85;
+  margin: 8px 0 0;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/* Generic card container used across sections */
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--card);
+  text-align: left;
+
+  h2 span:nth-child(2) {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+
+    transform: translateY(5px);
+
+    padding-left: 0.5rem;
+  }
+}
+
+.Toastify__toast {
+  &.Toastify__toast--success {
+    border: 1px solid green;
+  }
+
+  &.Toastify__toast--error {
+    border: 1px solid tomato;
+  }
+}
