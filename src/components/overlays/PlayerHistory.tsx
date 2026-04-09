@@ -11,6 +11,7 @@ import {
 	PaginationArea,
 	PaginationBtn,
 	PaginationLabel,
+	SearchInput,
 	Title,
 } from "./styles/AsidePanel.styles";
 import usePlayerHistory from "./hooks/usePlayerHistory";
@@ -28,6 +29,7 @@ const PlayerHistory: FC = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerHeight, setContainerHeight] = useState(0);
 	const [page, setPage] = useState(1);
+	const [search, setSearch] = useState("");
 
 	useEffect(() => {
 		const el = containerRef.current;
@@ -39,10 +41,14 @@ const PlayerHistory: FC = () => {
 		return () => observer.disconnect();
 	}, []);
 
+	const filtered = search.trim()
+		? data.filter(item => item.title.toLowerCase().includes(search.trim().toLowerCase()))
+		: data;
+
 	const pageSize = Math.max(1, Math.floor(containerHeight / ITEM_HEIGHT));
-	const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+	const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
 	const effectivePage = Math.min(page, totalPages);
-	const visible = data.slice((effectivePage - 1) * pageSize, effectivePage * pageSize);
+	const visible = filtered.slice((effectivePage - 1) * pageSize, effectivePage * pageSize);
 
 	return (
 		<Main isOpen={isOpenPopup === "player-history"} role="complementary" aria-hidden={isOpenPopup !== "player-history"}>
@@ -53,6 +59,12 @@ const PlayerHistory: FC = () => {
 						<FontAwesomeIcon icon={faXmark} />
 					</CloseButton>
 				</Header>
+				<SearchInput
+					type="text"
+					placeholder="Search..."
+					value={search}
+					onChange={e => { setSearch(e.target.value); setPage(1); }}
+				/>
 				<Container ref={containerRef}>
 					<TrackList data={visible} />
 				</Container>

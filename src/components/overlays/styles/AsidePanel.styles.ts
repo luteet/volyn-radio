@@ -137,6 +137,37 @@ export const PaginationLabel = styled("span")`
 	text-align: center;
 `;
 
+export const SearchInput = styled("input")`
+	width: 100%;
+	flex: 0 0 auto;
+
+	padding: 7px 12px;
+	margin-bottom: 10px;
+
+	background: rgba(148, 163, 184, 0.08);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+
+	color: var(--text);
+	font-size: 13px;
+	outline: none;
+
+	transition: border-color 0.1s;
+
+	&:focus {
+		border-color: rgba(148, 163, 184, 0.45);
+	}
+
+	&::-webkit-input-placeholder {
+		color: rgba(148, 163, 184, 0.6);
+	}
+
+	&::-moz-input-placeholder {
+		color: rgba(148, 163, 184, 0.6);
+		opacity: 1;
+	}
+`;
+
 export const Footer = styled("div")`
 	margin-top: auto;
 	padding-top: 8px;
