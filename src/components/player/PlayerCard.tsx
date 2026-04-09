@@ -40,7 +40,7 @@ export function PlayerCard() {
 	return (
 		<Main>
 			<NowPlaying>
-				<NowPlayingTitle title={currentTrack?.title || ""}>
+				<NowPlayingTitle href={currentTrack?.url} target="_blank" title={currentTrack?.title || ""}>
 					{currentTrack?.title || "—"}
 				</NowPlayingTitle>
 			</NowPlaying>

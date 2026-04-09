@@ -35,34 +35,15 @@ export const Main = styled("div") <{ isOpen: boolean }>`
 `;
 
 export const Inner = styled("div")`
-	display: flex;
-	flex-direction: column;
-	
 	height: 100%;
-	
-	padding: 14px;
-	
-	overflow: auto;
 
-	scrollbar-width: thin;
-	scrollbar-color: var(--card) var(--bg);
-	
-	&::-webkit-scrollbar {
-		width: 8px;
-	}
-	&::-webkit-scrollbar-track {
-		background: var(--bg);
-	}
-	&::-webkit-scrollbar-thumb {
-		background: var(--card);
-		border-radius: 4px;
-	}
+	padding: 14px;
+
+	overflow-y: auto;
 `;
 
 export const Header = styled("div")`
-	position: sticky;
-	top: 0;
-	z-index: 2;
+	flex: 0 0 auto;
 
 	display: flex;
 	align-items: center;
@@ -71,18 +52,7 @@ export const Header = styled("div")`
 	padding: 10px 2px 14px;
 	margin-bottom: 14px;
 
-	&::before {
-		content: "";
-		position: absolute;
-		left: 0; top: -14px;
-
-		width: 100%; height: 100%;
-
-		background-color: var(--bg);
-		box-shadow: 0 0 20px 20px var(--bg);
-
-		z-index: -1;
-	}
+	border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 `;
 
 export const Title = styled("div")`
@@ -113,7 +83,59 @@ export const CloseButton = styled("button")`
   }
 `;
 
-export const Container = styled("div")``;
+export const Container = styled("div")`
+	flex: 1 1 0;
+	min-height: 0;
+	overflow: hidden;
+`;
+
+export const PaginationArea = styled("div")`
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+
+	padding-top: 10px;
+	min-height: 42px;
+`;
+
+export const PaginationBtn = styled("button")`
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 30px; height: 30px;
+
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: rgba(148, 163, 184, 0.08);
+
+	color: var(--text);
+	font-size: 14px;
+	line-height: 1;
+	cursor: pointer;
+
+	transition: border-color 0.1s, background 0.1s;
+
+	&:hover:not(:disabled) {
+		border-color: rgba(148, 163, 184, 0.45);
+		background: rgba(148, 163, 184, 0.14);
+	}
+
+	&:disabled {
+		opacity: 0.3;
+		cursor: default;
+	}
+`;
+
+export const PaginationLabel = styled("span")`
+	color: var(--muted);
+	font-family: var(--mono);
+	font-size: 12px;
+	min-width: 48px;
+	text-align: center;
+`;
 
 export const Footer = styled("div")`
 	margin-top: auto;

@@ -14,8 +14,8 @@ const TrackList: FC<{ data: Track[] }> = ({ data }) => {
 		submittingTracks
 	} = usePlayerStore()
 
-	const handleClick = (data: Track) => {
-		addTrackToEnqueue(data);
+	const handleClick = (track: Track) => {
+		addTrackToEnqueue(track);
 	}
 
 	return (

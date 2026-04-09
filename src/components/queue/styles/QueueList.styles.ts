@@ -15,9 +15,9 @@ export const ItemInner = styled("div")`
 	justify-content: space-between;
 	gap: 10px;
 
-	width: 100%; min-height: 40px;
+	width: 100%; height: 40px;
 
-	padding: 10px 12px;
+	padding: 8px 12px;
 
 	border: 1px solid var(--border);
 	border-radius: 10px;
@@ -74,6 +74,8 @@ export const Icon = styled("i")`
 `;
 
 export const Item = styled("li")`
+	height: 40px;
+
 	&:not(:first-of-type) {
 		margin-top: 8px;
 	}

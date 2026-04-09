@@ -44,7 +44,7 @@ const useApp = () => {
 
 	useEffect(() => {
 		if (currentTrack) {
-			document.title = `${import.meta.env.VITE_APP_NAME} - Playing:  + ${currentTrack.title}`;
+			document.title = `${import.meta.env.VITE_APP_NAME} - Playing: ${currentTrack.title}`;
 		} else {
 			document.title = import.meta.env.VITE_APP_NAME;
 		}

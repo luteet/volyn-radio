@@ -21,7 +21,7 @@ export const NowPlaying = styled("div")`
 	}
 `;
 
-export const NowPlayingTitle = styled("div")`
+export const NowPlayingTitle = styled("a")`
 	flex: 1 1 auto;
 
 	text-overflow: ellipsis;
@@ -29,6 +29,7 @@ export const NowPlayingTitle = styled("div")`
 	font-weight: 500;
 	color: var(--text);
 	font-size: 18px;
+	text-decoration: none;
 
 	overflow: hidden;
 
