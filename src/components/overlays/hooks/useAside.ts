@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef } from "react";
 import { useAppStore } from "../../../store/appStore";
 import { usePlayerStore } from "../../../store/playerStore";
 import { useStickersStore } from "../../../store/stickersStore";
-import type { Sticker } from "../../../types/stickers";
 
 const useAside = () => {
 
@@ -11,12 +10,11 @@ const useAside = () => {
 	const { queue } = usePlayerStore();
 	const isPlaying = Boolean(queue?.nowPlaying?.track?.url) && !queue?.paused;
 	const playerTooltipTitle = isOpenPopup !== "player" && isPlaying ? queue?.nowPlaying?.track?.title : null;
-	const stickersApiBase = api ? `${api.apiOrigin}/api` : null;
+
 	const {
 		stickers,
 		isPlacing
 	} = useStickersStore();
-	const stickerImagesBase = api ? `${api.apiOrigin}/api/sticker-images` : null;
 
 	// Refs
 	const asideRef = useRef<HTMLDivElement>(null);
@@ -39,10 +37,6 @@ const useAside = () => {
 		}
 	}, [setIsOpenPopup]);
 
-	const handleClose = useCallback(() => {
-		setIsOpenPopup(null);
-	}, [setIsOpenPopup]);
-
 	// Effects for adding event listeners for the above handlers, and for fetching stickers when the API becomes available
 	useEffect(() => {
 
@@ -56,33 +50,18 @@ const useAside = () => {
 
 	}, [handleKeyDown, handleClick]);
 
-	useEffect(() => {
-		if (!api || !stickersApiBase) return;
-		(async () => {
-			try {
-				const resp = await fetch(`${stickersApiBase}/stickers`, { method: "GET" });
-				if (!resp.ok) return;
-				const json = (await resp.json()) as { stickers?: Sticker[] };
-				if (!Array.isArray(json?.stickers)) return;
-				useStickersStore.getState().setStickers(json.stickers);
-			} catch { /* empty */ }
-		})();
-	}, [api, stickersApiBase]);
-
 	// Public
 	return {
 		asideRef,
 
 		playerTooltipTitle,
 
-		stickersApiBase,
-		stickerImagesBase,
+		api,
 		stickers,
 
 		isPlaying, isPlacing, isOpenPopup,
 
-		setIsOpenPopup,
-		handleClose
+		setIsOpenPopup
 	}
 }
 

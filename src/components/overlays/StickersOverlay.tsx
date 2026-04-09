@@ -9,49 +9,48 @@ import { UploadSection } from "./stickers/UploadSection";
 import { StickerListItem } from "./stickers/StickerListItem";
 import { DraftBottomBar } from "./stickers/DraftBottomBar";
 import { StickersList } from "./stickers/Stickers.styles";
+import useStickersOverlay from "./hooks/useStickersOverlay";
 
-export function StickersOverlay({
-  isOpen,
-  onClose,
-  stickersApiBase,
-  stickerImagesBase,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  stickersApiBase: string;
-  stickerImagesBase: string;
-}) {
-  const ctx = useStickers({ isOpen, onClose, stickersApiBase, stickerImagesBase });
+export function StickersOverlay() {
 
-  if (!ctx.canUse) return null;
+	const {
+		isOpen,
+		stickersApiBase, stickerImagesBase,
 
-  return (
-    <StickersProvider value={ctx}>
-      <StickerStage />
+		handleClose
+	} = useStickersOverlay();
 
-      <S.Main isOpen={isOpen} role="complementary" aria-hidden={!isOpen}>
-        <S.Inner>
-          <S.Header>
-            <S.Title>Stickers</S.Title>
-            <S.CloseButton type="button" onClick={onClose} aria-label="Close">
-              <FontAwesomeIcon icon={faXmark} />
-            </S.CloseButton>
-          </S.Header>
+	const ctx = useStickers({ isOpen, onClose: handleClose, stickersApiBase, stickerImagesBase });
 
-          <S.Container>
-            <UploadSection />
+	if (!ctx.canUse) return null;
 
-            <StickersList aria-label="Stickers list">
-              {ctx.stickers.map((s) => (
-                <StickerListItem key={s.id} sticker={s} />
-              ))}
-            </StickersList>
-          </S.Container>
-        </S.Inner>
-      </S.Main>
+	return (
+		<StickersProvider value={ctx}>
+			<StickerStage />
 
-      <StickersPageLayer />
-      <DraftBottomBar />
-    </StickersProvider>
-  );
+			<S.Main isOpen={isOpen} role="complementary" aria-hidden={!isOpen}>
+				<S.Inner>
+					<S.Header>
+						<S.Title>Stickers</S.Title>
+						<S.CloseButton type="button" onClick={handleClose} aria-label="Close">
+							<FontAwesomeIcon icon={faXmark} />
+						</S.CloseButton>
+					</S.Header>
+
+					<S.Container>
+						<UploadSection />
+
+						<StickersList aria-label="Stickers list">
+							{ctx.stickers.map((s) => (
+								<StickerListItem key={s.id} sticker={s} />
+							))}
+						</StickersList>
+					</S.Container>
+				</S.Inner>
+			</S.Main>
+
+			<StickersPageLayer />
+			<DraftBottomBar />
+		</StickersProvider>
+	);
 }

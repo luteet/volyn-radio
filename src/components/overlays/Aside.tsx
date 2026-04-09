@@ -15,17 +15,21 @@ export function Aside() {
 	const {
 		asideRef,
 
+		api,
 		stickers,
-		stickersApiBase,
-		stickerImagesBase,
 
 		playerTooltipTitle,
 
 		isPlaying, isPlacing, isOpenPopup,
 
 		setIsOpenPopup,
-		handleClose
 	} = useAside();
+
+	const isOpenPlayerApp = isOpenPopup === "player";
+	const isOpenPlayerHistory = isOpenPopup === "player-history";
+	const isOpenStickersUploader = isOpenPopup === "stickers-uploader";
+
+	const stickersApiBase = api ? `${api.apiOrigin}/api` : "";
 
 	return (
 		<div ref={asideRef}>
@@ -35,13 +39,13 @@ export function Aside() {
 					<S.ButtonWrapper>
 						<S.Button
 							type="button"
-							className={isOpenPopup === "player" || isPlaying ? "active" : ""}
-							aria-label={isOpenPopup === "player" ? t("Aside.close_player") : t("Aside.open_player")}
-							aria-expanded={isOpenPopup === "player"}
+							className={isOpenPlayerApp || isPlaying ? "active" : ""}
+							aria-label={isOpenPlayerApp ? t("Aside.close_player") : t("Aside.open_player")}
+							aria-expanded={isOpenPlayerApp}
 							disabled={isPlacing}
 							onClick={() => {
 								if (isPlacing) return;
-								setIsOpenPopup(isPlacing || isOpenPopup === "player" ? null : "player");
+								setIsOpenPopup(isPlacing || isOpenPlayerApp ? null : "player");
 							}}
 						>
 							<FontAwesomeIcon icon={faMusic} />
@@ -58,13 +62,13 @@ export function Aside() {
 					<S.ButtonWrapper>
 						<S.Button
 							type="button"
-							className={isOpenPopup === "player-history" ? "active" : ""}
-							aria-label={isOpenPopup === "player-history" ? t("Aside.close_player_history") : t("Aside.open_player_history")}
-							aria-expanded={isOpenPopup === "player-history"}
+							className={isOpenPlayerHistory ? "active" : ""}
+							aria-label={isOpenPlayerHistory ? t("Aside.close_player_history") : t("Aside.open_player_history")}
+							aria-expanded={isOpenPlayerHistory}
 							disabled={isPlacing}
 							onClick={() => {
 								if (isPlacing) return;
-								setIsOpenPopup(isOpenPopup === "player-history" ? null : "player-history")
+								setIsOpenPopup(isOpenPlayerHistory ? null : "player-history")
 							}}
 						>
 							<FontAwesomeIcon icon={faList} />
@@ -75,13 +79,13 @@ export function Aside() {
 					<S.ButtonWrapper>
 						<S.Button
 							type="button"
-							className={isOpenPopup === "stickers-uploader" ? "active" : ""}
-							aria-label={isOpenPopup === "stickers-uploader" ? t("Aside.close_stickers") : t("Aside.open_stickers")}
-							aria-expanded={isOpenPopup === "stickers-uploader"}
+							className={isOpenStickersUploader ? "active" : ""}
+							aria-label={isOpenStickersUploader ? t("Aside.close_stickers") : t("Aside.open_stickers")}
+							aria-expanded={isOpenStickersUploader}
 							disabled={!stickersApiBase || isPlacing}
 							onClick={() => {
 								if (!stickersApiBase || isPlacing) return;
-								setIsOpenPopup(isOpenPopup === "stickers-uploader" ? null : "stickers-uploader")
+								setIsOpenPopup(isOpenStickersUploader ? null : "stickers-uploader")
 							}}
 						>
 							<FontAwesomeIcon icon={faImage} />
@@ -103,12 +107,7 @@ export function Aside() {
 			<PlayerHistory />
 
 			{/* Stickers */}
-			<StickersOverlay
-				isOpen={isOpenPopup === "stickers-uploader" && !isPlacing}
-				onClose={handleClose}
-				stickersApiBase={stickersApiBase || ""}
-				stickerImagesBase={stickerImagesBase || ""}
-			/>
+			<StickersOverlay />
 		</div>
 	);
 }
