@@ -21,9 +21,6 @@ const useApp = () => {
 		try {
 			const u = new URL(apiBase);
 			let prefix = u.pathname.replace(/\/$/, "");
-			// Backward/forward compatibility:
-			// Backend moved from `/api/*` to `/api/player/*`.
-			// If env still points to `/api`, transparently upgrade it.
 			if (prefix === "/api") prefix = "/api/player";
 			return { origin: u.origin, prefix };
 		} catch {

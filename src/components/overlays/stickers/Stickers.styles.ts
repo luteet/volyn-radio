@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 
 // ─── StickerStage ────────────────────────────────────────────────────────────
 
-export const Stage = styled("div")<{ interactive: boolean }>`
+export const Stage = styled("div") <{ interactive: boolean }>`
   position: fixed;
   inset: 0;
   overflow: hidden;
@@ -23,7 +23,7 @@ export const BackgroundLayer = styled("div")`
   z-index: 0;
 `;
 
-export const BackgroundImage = styled("img")<{ editingOriginal?: boolean }>`
+export const BackgroundImage = styled("img") <{ editingOriginal?: boolean }>`
   position: absolute;
   inset: 0;
   width: 100%;
@@ -36,7 +36,7 @@ export const BackgroundImage = styled("img")<{ editingOriginal?: boolean }>`
   ${({ editingOriginal }) => editingOriginal && `opacity: 0.35;`}
 `;
 
-export const StageItem = styled("img")<{ isDraft?: boolean; editingOriginal?: boolean }>`
+export const StageItem = styled("img") <{ isDraft?: boolean; editingOriginal?: boolean }>`
   position: absolute;
   user-select: none;
   pointer-events: none;
@@ -74,7 +74,7 @@ const handlePositionStyles: Record<string, string> = {
   s: "left: 50%; bottom: -6px; transform: translateX(-50%); cursor: ns-resize;",
 };
 
-export const EditorHandle = styled("div")<{ dir: string }>`
+export const EditorHandle = styled("div") <{ dir: string }>`
   position: absolute;
   width: 12px;
   height: 12px;
@@ -162,7 +162,7 @@ export const StickerCardImg = styled("img")`
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 0;
+  border-radius: 8px;
   pointer-events: none;
 `;
 
@@ -215,11 +215,15 @@ export const StickersList = styled("div")`
   gap: 12px;
   padding-top: 12px;
   padding-bottom: 12px;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 // ─── UploadSection ───────────────────────────────────────────────────────────
 
-export const UploadDropzone = styled("div")<{ active?: boolean }>`
+export const UploadDropzone = styled("div") <{ active?: boolean }>`
   border-radius: 16px;
   border: 2px dashed rgba(148, 163, 184, 0.65);
   background: rgba(20, 184, 166, 0.08);

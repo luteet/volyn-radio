@@ -7,8 +7,8 @@ export const Main = styled("div") <{ isOpen: boolean }>`
 	bottom: var(--aside-inset);
 	right: var(--aside-popup-gap);
 
-	width: var(--aside-popup-width);
-	max-width: calc(100vw - var(--aside-inset) * 2 - var(--aside-popup-width) - var(--aside-popup-gap));
+	width: 100%;
+	max-width: min(var(--aside-popup-width), 100vw - var(--aside-inset) - var(--aside-popup-gap));
 
 	z-index: 5;
 	pointer-events: none;

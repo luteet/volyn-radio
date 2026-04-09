@@ -25,8 +25,6 @@ export const GlobalThemeProvider: FC<Props> = ({ children }) => {
 						"Courier New", monospace;
 					--sans: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 					
-					--aside-width: 64px;
-					--aside-inset: 24px;
 					--aside-popup-width: 500px;
 					--aside-popup-gap: calc(var(--aside-inset) + var(--aside-width) + var(--aside-inset)); /* 112px */
 
@@ -41,6 +39,14 @@ export const GlobalThemeProvider: FC<Props> = ({ children }) => {
 				html {
 					scrollbar-width: thin;
 					scrollbar-color: var(--card) var(--bg);
+
+					--aside-width: 48px;
+					--aside-inset: 16px;
+
+					@media (min-width: 992px) {
+						--aside-width: 64px;
+						--aside-inset: 24px;
+					}
 
 					&::-webkit-scrollbar {
 						width: 8px;

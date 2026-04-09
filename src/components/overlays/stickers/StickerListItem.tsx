@@ -4,6 +4,7 @@ import { faCircleInfo, faTrash, faXmark } from "@fortawesome/free-solid-svg-icon
 import type { Sticker } from "../../../types/stickers";
 import { IconButton } from "../../ui/IconButton";
 import { useStickersContext } from "./stickersContextDef";
+import { StickerThumb } from "./StickerThumb";
 import * as S from "./Stickers.styles";
 
 interface Props {
@@ -34,11 +35,7 @@ export const StickerListItem: FC<Props> = ({ sticker: s }) => {
               );
             })}
           </S.StickerLabelBadges>
-          <S.StickerCardImg
-            src={stickerImageUrl(s.filename)}
-            alt=""
-            draggable={false}
-          />
+          <StickerThumb src={stickerImageUrl(s.filename)} />
         </S.StickerCardThumb>
       </S.StickerCardMain>
 

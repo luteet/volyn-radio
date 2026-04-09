@@ -77,7 +77,7 @@ export const usePlayerStore = create<State & Actions>((set, get) => ({
 	isPlayToggle: false,
 	isTrackEnding: false,
 
-	volume: 0.1,
+	volume: window.innerWidth < 520 ? 1 : 0.1,
 	isMuted: false,
 
 	showJoinPopup: false,
