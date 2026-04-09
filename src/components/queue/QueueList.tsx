@@ -6,7 +6,7 @@ export function QueueList({ queued }: { queued: QueueState["queued"] }) {
 	return (
 		<List as="ol">
 			{queued.map((q) => (
-				<Item key={`${q.addedAt}-${q.track.url}`}>
+				<Item key={q.track.id}>
 					<ItemInner aria-busy="false">
 						<Title title={q.track.title}>
 							{q.track.title}
